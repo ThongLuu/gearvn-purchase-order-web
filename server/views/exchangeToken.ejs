@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+</head>
+
+<body>
+  <script>
+    localStorage.setItem("token", (`<%- token -%>`))
+    localStorage.setItem("user", (`<%- user -%>`))
+    localStorage.setItem("depots", (`<%- depots -%>`))
+    localStorage.setItem("stores", (`<%- stores -%>`))
+    localStorage.setItem("permission", `<%- permission -%>`)
+    localStorage.setItem("permissions", `<%- permissions -%>`)
+    window.location.replace("<%= redirectURL %>");
+  </script>
+</body>
+
+</html>

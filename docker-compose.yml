@@ -1,0 +1,27 @@
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: gearvn-purchase-order-frontend
+    network_mode: "host"
+    environment:
+      - NODE_ENV=development
+      - NODE_OPTIONS=--openssl-legacy-provider
+      - PORT=3000
+      - WDS_HOST=0.0.0.0
+      - WDS_PORT=3000
+      - REACT_APP_API_URL=http://localhost:5000
+      - REACT_APP_GOOGLE_REDIRECT_URI=http://localhost:5000/oauth2callback
+      - AUTH_HOST=https://sso.uat.gearvn.xyz
+      - REACT_APP_NHANH_PROXY_API=https://nhanhvnv2-proxy.gearvn.xyz
+      - PUBLIC_URL=http://localhost:3000
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - ./public:/app/public
+      - ./src:/app/src
+    command: sh -c "cross-env NODE_ENV=development NODE_OPTIONS=--openssl-legacy-provider ./node_modules/.bin/webpack-dev-server --progress --mode development --config ./config/webpack.dev.js"
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
